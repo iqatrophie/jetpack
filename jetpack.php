@@ -93,7 +93,7 @@ require_once( JETPACK__PLUGIN_DIR . 'class.jetpack-connection-banner.php'  );
 if ( is_admin() ) {
 	require_once( JETPACK__PLUGIN_DIR . 'class.jetpack-admin.php'     );
 	require_once( JETPACK__PLUGIN_DIR . 'class.jetpack-jitm.php'      );
-	require_once( JETPACK__PLUGIN_DIR . 'class.jetpack-debugger.php'  );
+	jetpack_require_lib( 'debugger' );
 }
 
 // Play nice with http://wp-cli.org/
