@@ -19,7 +19,8 @@ class QueryJitm extends Component {
 	};
 
 	componentWillMount() {
-		const message_path = `wp:toplevel_page_jetpack${ this.props.route.path }`;
+		//const message_path = `wp:toplevel_page_jetpack${ this.props.route.path }`;
+		const message_path = 'wp:toplevel_page_jetpack';
 
 		if ( ! this.props.isFetchingJitm ) {
 			this.props.fetchJitm( message_path );
