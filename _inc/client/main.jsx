@@ -16,6 +16,7 @@ import Navigation from 'components/navigation';
 import NavigationSettings from 'components/navigation-settings';
 import SearchableSettings from 'settings/index.jsx';
 import JetpackConnect from 'components/jetpack-connect';
+import QueryJitm from 'components/data/query-jitm';
 import JumpStart from 'components/jumpstart';
 import { getJumpStartStatus, isJumpstarting } from 'state/jumpstart';
 import { getSiteConnectionStatus, isCurrentUserLinked, isSiteConnected } from 'state/connection';
@@ -255,7 +256,7 @@ class Main extends React.Component {
 			<div>
 				<Masthead route={ this.props.route } />
 					<div className="jp-lower">
-						{ this.props.isSiteConnected && <QueryRewindStatus /> }
+						{ this.props.isSiteConnected && <QueryRewindStatus /> && <QueryJitm route={ this.props.route } /> }
 						<AdminNotices />
 						<JetpackNotices />
 						{ this.renderMainContent( this.props.route.path ) }

@@ -266,8 +266,22 @@ function JetpackRestApiClient( root, nonce ) {
 		verifySiteGoogle: ( keyringId ) => postRequest( `${ apiRoot }jetpack/v4/verify-site/google`, postParams, {
 			body: JSON.stringify( { keyring_id: keyringId } ),
 		} )
-		.then( checkStatus )
-		.then( parseJsonResponse )
+			.then( checkStatus )
+			.then( parseJsonResponse ),
+
+		fetchJitm: ( message_path, query_url ) => {
+			getParams = {
+				...getParams,
+				body: JSON.stringify( {
+					message_path,
+					query_url
+				} )
+			};
+
+			return getRequest( `${ apiRoot }jetpack/v4/jitm`, getParams )
+				.then( checkStatus )
+				.then( parseJsonResponse );
+		}
 	};
 
 	function addCacheBuster( route ) {
