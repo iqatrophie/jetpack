@@ -102,7 +102,7 @@ There are opportunities for developers at all levels to contribute. [Learn more 
 
 = 6.8 =
 
-* Release date: November 14, 2018
+* Release date: December 4, 2018
 * Release post: https://wp.me/p1moTy-cee
 
 **Major Enhancements**
