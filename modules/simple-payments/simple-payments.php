@@ -285,7 +285,7 @@ class Jetpack_Simple_Payments {
 			$currency = '¤';
 		}
 
-		return "$price $currency";
+		return $currency . number_format_i18n( $price );
 	}
 
 	/**
