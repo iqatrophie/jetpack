@@ -19,7 +19,6 @@ export const fetchJitm = ( message_path = '', query_url = 'page=jetpack' ) => {
 					type: JITM_FETCH_RECEIVE,
 					message: message
 				} );
-				return message;
 			} )
 			.catch( error => {
 				dispatch( {
