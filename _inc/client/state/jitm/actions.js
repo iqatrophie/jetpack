@@ -13,17 +13,19 @@ export const fetchJitm = ( message_path = '', query_url = 'page=jetpack' ) => {
 		dispatch( {
 			type: JITM_FETCH
 		} );
-		return restApi.fetchJitm( message_path, query_url ).then( message => {
-			dispatch( {
-				type: JITM_FETCH_RECEIVE,
-				message: message
+		return restApi.fetchJitm( message_path, query_url )
+			.then( message => {
+				dispatch( {
+					type: JITM_FETCH_RECEIVE,
+					message: message
+				} );
+				return message;
+			} )
+			.catch( error => {
+				dispatch( {
+					type: JITM_FETCH_FAIL,
+					error: error
+				} );
 			} );
-			return message;
-		} ).catch( error => {
-			dispatch( {
-				type: JITM_FETCH_FAIL,
-				error: error
-			} );
-		} );
 	};
 };
