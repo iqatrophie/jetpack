@@ -206,6 +206,14 @@ class Jetpack_Gutenberg {
 			plugins_url( '_inc/blocks/', JETPACK__PLUGIN_FILE )
 		);
 
+		$is_subscriptions_active = Jetpack::is_module_active( 'subscriptions' );
+		if ( $is_subscriptions_active ) {
+			// Get number of subscribers
+			$subscriptions = new Jetpack_Subscriptions_Widget();
+			$subscriber_info = $subscriptions->fetch_subscriber_count();
+			$subscriber_count = $subscriber_info['value'];
+		}
+
 		wp_localize_script(
 			'jetpack-blocks-editor',
 			'Jetpack_Initial_State',
@@ -220,7 +228,15 @@ class Jetpack_Gutenberg {
 						'name'      => 'related-posts',
 						'activated' => Jetpack::is_module_active( 'related-posts' ),
 						'override'  => Jetpack_Modules_Overrides::instance()->get_module_override( 'related-posts' )
-					)
+					),
+					'subscriptions' => array(
+						'name'      => 'subscriptions',
+						'activated' => $is_subscriptions_active,
+						'override'  => Jetpack_Modules_Overrides::instance()->get_module_override( 'subscriptions' ),
+						'data'      => array(
+							'subscriber_count' => $subscriber_count
+						)
+					),
 				)
 			)
 		);
