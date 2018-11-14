@@ -123,6 +123,11 @@ class Jetpack_Email_Subscribe {
 
 	public function parse_shortcode( $attrs ) {
 		// We allow for overriding the presentation labels.
+
+		// Gutenberg has a default property className, we want to honour that.
+		if ( $attrs['className'] ) {
+			$attrs['classname'] = $attrs['className'];
+		}
 		$data = shortcode_atts(
 			array(
 				'blog_id'           => $this->get_blog_id(),
@@ -133,7 +138,7 @@ class Jetpack_Email_Subscribe {
 				'processing_label'  => __( 'Processing...', 'jetpack' ),
 				'success_label'     => __( 'Success! You\'ve been added to the list.', 'jetpack' ),
 				'error_label'       => __( "Oh no! Unfortunately there was an error.\nPlease try reloading this page and adding your email once more.", 'jetpack' ),
-				'className'         => self::$css_classname_prefix,
+				'classname'         => self::$css_classname_prefix,
 				'dom_id'            => uniqid( self::$css_classname_prefix . '_', false ),
 			),
 			array_filter( $attrs )
