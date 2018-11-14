@@ -1,6 +1,6 @@
 /* global wp */
 /* jshint esversion: 5, es3:false */
-var el = wp.element.createElement,
+const el = wp.element.createElement,
 	registerBlockType = wp.blocks.registerBlockType,
 	ServerSideRender = wp.components.ServerSideRender,
 	TextControl = wp.components.TextControl,
@@ -33,7 +33,9 @@ registerBlockType( 'jetpack/email-subscribe', {
 				el( TextControl, {
 					label: 'Foo',
 					value: props.attributes.foo,
-					onChange: ( value ) => { props.setAttributes( { foo: value } ); },
+					onChange: function( value ) {
+						props.setAttributes( { foo: value } );
+					},
 				} )
 			),
 		];
