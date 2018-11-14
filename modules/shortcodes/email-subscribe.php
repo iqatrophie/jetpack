@@ -48,6 +48,13 @@ class Jetpack_Email_Subscribe {
 	private function register_scripts_and_styles() {
 		wp_register_script( 'jetpack-email-subscribe', Jetpack::get_file_url_for_environment( '_inc/build/shortcodes/js/jetpack-email-subscribe.min.js', 'modules/shortcodes/js/jetpack-email-subscribe.js' ), array( 'jquery' ), self::$version );
 		wp_register_style( 'jetpack-email-subscribe', plugins_url( '/css/jetpack-email-subscribe.css', __FILE__ ), array(), self::$version );
+
+		// For Gutenberg block:
+		wp_register_script(
+			'jetpack-email-subscribe-block',
+			Jetpack::get_file_url_for_environment( '_inc/build/shortcodes/js/jetpack-email-subscribe-block.min.js', 'modules/shortcodes/js/jetpack-email-subscribe-block.js' ),
+			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' )
+		);
 	}
 
 	private function register_init_hook() {
@@ -58,9 +65,24 @@ class Jetpack_Email_Subscribe {
 		add_shortcode( self::$shortcode, array( $this, 'parse_shortcode' ) );
 	}
 
+	private function register_gutenberg_block() {
+		if ( function_exists( 'register_block_type' ) ) {
+			register_block_type( 'jetpack/email-subscribe', array(
+				'attributes' => array(
+					'foo' => array(
+						'type' => 'string',
+					),
+				),
+				'editor_script'   => 'jetpack-email-subscribe-block', // The script name we gave in the wp_register_script() call.
+				'render_callback' => array( $this, 'parse_shortcode' ),
+			) );
+		}
+	}
+
 	public function init_hook_action() {
 		$this->register_scripts_and_styles();
 		$this->register_shortcode();
+		$this->register_gutenberg_block();
 	}
 
 	private function get_blog_id() {
