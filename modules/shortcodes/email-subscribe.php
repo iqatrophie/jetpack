@@ -48,13 +48,6 @@ class Jetpack_Email_Subscribe {
 	private function register_scripts_and_styles() {
 		wp_register_script( 'jetpack-email-subscribe', Jetpack::get_file_url_for_environment( '_inc/build/shortcodes/js/jetpack-email-subscribe.min.js', 'modules/shortcodes/js/jetpack-email-subscribe.js' ), array( 'jquery' ), self::$version );
 		wp_register_style( 'jetpack-email-subscribe', plugins_url( '/css/jetpack-email-subscribe.css', __FILE__ ), array(), self::$version );
-
-		// For Gutenberg block:
-		wp_register_script(
-			'jetpack-email-subscribe-block',
-			Jetpack::get_file_url_for_environment( '_inc/build/shortcodes/js/jetpack-email-subscribe-block.min.js', 'modules/shortcodes/js/jetpack-email-subscribe-block.js' ),
-			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' )
-		);
 	}
 
 	private function register_init_hook() {
@@ -67,6 +60,14 @@ class Jetpack_Email_Subscribe {
 
 	private function register_gutenberg_block() {
 		if ( function_exists( 'register_block_type' ) ) {
+			// For Gutenberg block:
+			wp_register_script(
+				'jetpack-email-subscribe-block',
+				Jetpack::get_file_url_for_environment( '_inc/build/shortcodes/js/jetpack-email-subscribe-block.min.js', 'modules/shortcodes/js/jetpack-email-subscribe-block.js' ),
+				array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' )
+			);
+			add_action( 'enqueue_block_assets', array( $this, 'enqueue_css' ) );
+
 			register_block_type( 'jetpack/email-subscribe', array(
 				'attributes' => array(
 					'foo' => array(
@@ -93,6 +94,11 @@ class Jetpack_Email_Subscribe {
 		return Jetpack_Options::get_option( 'id' );
 	}
 
+	public function enqueue_css() {
+		if ( ! wp_style_is( 'jetpack-email-subscribe', 'enqueue' ) ) {
+			wp_enqueue_style( 'jetpack-email-subscribe' );
+		}
+	}
 
 	public function parse_shortcode( $attrs ) {
 		// We allow for overriding the presentation labels.
@@ -116,9 +122,7 @@ class Jetpack_Email_Subscribe {
 			wp_enqueue_script( 'jetpack-email-subscribe' );
 		}
 
-		if ( ! wp_style_is( 'jetpack-email-subscribe', 'enqueue' ) ) {
-			wp_enqueue_style( 'jetpack-email-subscribe' );
-		}
+		$this->enqueue_css();
 
 		wp_add_inline_script(
 			'jetpack-email-subscribe',
