@@ -594,8 +594,11 @@ jQuery( function() {
 		$text = apply_filters( 'wpcom_markdown_transform_pre', $text, $args );
 		// ensure our paragraphs are separated
 		$text = str_replace( array( '</p><p>', "</p>\n<p>" ), "</p>\n\n<p>", $text );
-		// visual editor likes to add <p>s. Buh-bye.
-		$text = $this->get_parser()->unp( $text );
+		// Classic Visual Editor likes to add <p>s.
+		// Let's remove them but only if the post content has no editor blocks on it.
+		if ( ! function_exists( 'has_blocks' ) || ! has_blocks( $text ) )  {
+			$text = $this->get_parser()->unp( $text );
+		}
 		// sometimes we get an encoded > at start of line, breaking blockquotes
 		$text = preg_replace( '/^&gt;/m', '>', $text );
 		// prefixes are because we need to namespace footnotes by post_id
