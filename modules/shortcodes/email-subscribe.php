@@ -133,7 +133,7 @@ class Jetpack_Email_Subscribe {
 				'classname'         => self::$css_classname_prefix,
 				'dom_id'            => uniqid( self::$css_classname_prefix . '_', false ),
 			),
-			$attrs
+			array_filter( $attrs )
 		);
 
 		if ( ! wp_script_is( 'jetpack-email-subscribe', 'enqueued' ) ) {

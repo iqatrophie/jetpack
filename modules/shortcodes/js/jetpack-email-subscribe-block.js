@@ -31,8 +31,17 @@ registerBlockType( 'jetpack/email-subscribe', {
 			 */
 			el( InspectorControls, {},
 				el( TextControl, {
-					label: 'Foo',
-					value: props.attributes.foo,
+					label: 'Title',
+					value: props.attributes.title,
+					onChange: function( value ) {
+						props.setAttributes( { foo: value } );
+					},
+				} )
+			),
+			el( InspectorControls, {},
+				el( TextControl, {
+					label: 'Email Placeholder',
+					value: props.attributes.email_placeholder,
 					onChange: function( value ) {
 						props.setAttributes( { foo: value } );
 					},
