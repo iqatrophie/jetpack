@@ -28,7 +28,9 @@ registerBlockType( 'jetpack/email-subscribe', {
 					label: field.label,
 					value: props.attributes[ field.id ],
 					onChange: function( value ) {
-						props.setAttributes( { [ field.id ]: value } );
+						const newVal = {};
+						newVal[ field.id ] = value;
+						props.setAttributes( newVal );
 					},
 				} )
 			);
