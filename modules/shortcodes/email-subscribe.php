@@ -70,11 +70,29 @@ class Jetpack_Email_Subscribe {
 
 			register_block_type( 'jetpack/email-subscribe', array(
 				'attributes' => array(
-					'foo' => array(
+					'title' => array(
+						'type' => 'string',
+					),
+					'email_placeholder' => array(
+						'type' => 'string',
+					),
+					'submit_label' => array(
+						'type' => 'string',
+					),
+					'consent_text' => array(
+						'type' => 'string',
+					),
+					'processing_label' => array(
+						'type' => 'string',
+					),
+					'success_label' => array(
+						'type' => 'string',
+					),
+					'error_label' => array(
 						'type' => 'string',
 					),
 				),
-				'editor_script'   => 'jetpack-email-subscribe-block', // The script name we gave in the wp_register_script() call.
+				'editor_script'   => 'jetpack-email-subscribe-block',
 				'render_callback' => array( $this, 'parse_shortcode' ),
 			) );
 		}
