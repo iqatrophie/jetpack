@@ -124,10 +124,6 @@ class Jetpack_Email_Subscribe {
 	public function parse_shortcode( $attrs ) {
 		// We allow for overriding the presentation labels.
 
-		// Gutenberg has a default property className, we want to honour that.
-		if ( $attrs['className'] ) {
-			$attrs['classname'] = $attrs['className'];
-		}
 		$data = shortcode_atts(
 			array(
 				'blog_id'           => $this->get_blog_id(),
